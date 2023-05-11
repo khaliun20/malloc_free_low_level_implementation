@@ -1,0 +1,371 @@
+Current directory is ~/more/my_malloc/general_tests/
+Current directory is ~/more/my_malloc/general_tests/
+GNU gdb (Ubuntu 12.1-0ubuntu1~22.04) 12.1
+Copyright (C) 2022 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+Type "show copying" and "show warranty" for details.
+This GDB was configured as "x86_64-linux-gnu".
+Type "show configuration" for configuration details.
+For bug reporting instructions, please see:
+<https://www.gnu.org/software/gdb/bugs/>.
+Find the GDB manual and other documentation resources online at:
+    <http://www.gnu.org/software/gdb/documentation/>.
+
+For help, type "help".
+Type "apropos word" to search for commands related to "word"...
+Reading symbols from mymalloc_test...
+(gdb) Warning: 'set target-async', an alias for the command 'set mi-async', is deprecated.
+Use 'set mi-async'.
+
+start
+Temporary breakpoint 1 at 0x11dd: file mymalloc_test.c, line 16.
+Starting program: /home/km632/more/my_malloc/general_tests/mymalloc_test 
+[Thread debugging using libthread_db enabled]
+Using host libthread_db library "/lib/x86_64-linux-gnu/libthread_db.so.1".
+
+Temporary breakpoint 1, main (argc=1, argv=0x7fffffffe428) at mymalloc_test.c:16
+16	int main(int argc, char * argv[]) {
+(gdb) b 68
+Breakpoint 2 at 0x5555555554fa: file mymalloc_test.c, line 68.
+(gdb) run
+Starting program: /home/km632/more/my_malloc/general_tests/mymalloc_test 
+[Thread debugging using libthread_db enabled]
+Using host libthread_db library "/lib/x86_64-linux-gnu/libthread_db.so.1".
+
+Breakpoint 2, main (argc=1, argv=0x7fffffffe428) at mymalloc_test.c:68
+68	  array[4] = (int *)MALLOC(size * sizeof(int));
+(gdb) step
+ff_malloc (n=28) at my_malloc.c:302
+302	  Node_t * cur = head;
+(gdb) n
+303	  while (cur) {
+(gdb) n
+306	    if (cur->size > n + sizeof(Node_t))
+(gdb) pritn cur->size
+Undefined command: "pritn".  Try "help".
+(gdb) print cur->size
+$1 = 16
+(gdb) print n
+$2 = 28
+(gdb) print n + sizeoe(Node_t)
+No symbol "sizeoe" in current context.
+(gdb) print n + sizeof(Node_t) 
+$3 = 52
+(gdb) n
+308	    else if (cur->size == n)
+(gdb) n
+311	      cur = cur->next;
+(gdb) n
+303	  while (cur) {
+(gdb) n
+306	    if (cur->size > n + sizeof(Node_t))
+(gdb) 
+308	    else if (cur->size == n)
+(gdb) 
+311	      cur = cur->next;
+(gdb) 
+303	  while (cur) {
+(gdb) 
+314	  return allocate_Mem(n);
+(gdb) 
+315	}
+(gdb) print *heaed
+No symbol "heaed" in current context.
+(gdb) print *heaed
+No symbol "heaed" in current context.
+(gdb) print *head
+$4 = {size = 16, next = 0x555555559080, pre = 0x0}
+(gdb) print *head ->next
+$5 = {size = 32, next = 0x0, pre = 0x555555559000}
+(gdb) n
+main (argc=1, argv=0x7fffffffe428) at mymalloc_test.c:68
+68	  array[4] = (int *)MALLOC(size * sizeof(int));
+(gdb) n
+69	  for (i = 0; i < size; i++) {
+(gdb) clear 68
+Deleted breakpoint 2 
+(gdb) b 91
+Breakpoint 3 at 0x555555555634: file mymalloc_test.c, line 91.
+(gdb) run
+Starting program: /home/km632/more/my_malloc/general_tests/mymalloc_test 
+[Thread debugging using libthread_db enabled]
+Using host libthread_db library "/lib/x86_64-linux-gnu/libthread_db.so.1".
+
+Breakpoint 3, main (argc=1, argv=0x7fffffffe428) at mymalloc_test.c:91
+91	  array[6] = (int *)MALLOC(size * sizeof(int));
+(gdb) print * head
+$6 = {size = 16, next = 0x555555559028, pre = 0x0}
+(gdb) print *head->next
+$7 = {size = 272, next = 0x555555559184, pre = 0x555555559000}
+(gdb) print *head->next->next
+$8 = {size = 1024, next = 0x0, pre = 0x555555559028}
+(gdb) clear 91
+Deleted breakpoint 3 
+(gdb) b 113
+Breakpoint 4 at 0x55555555574e: file mymalloc_test.c, line 113.
+(gdb) run
+Starting program: /home/km632/more/my_malloc/general_tests/mymalloc_test 
+[Thread debugging using libthread_db enabled]
+Using host libthread_db library "/lib/x86_64-linux-gnu/libthread_db.so.1".
+
+Breakpoint 4, main (argc=1, argv=0x7fffffffe428) at mymalloc_test.c:113
+113	  array[8] = (int *)MALLOC(size * sizeof(int));
+(gdb) print *head
+$9 = {size = 156, next = 0x555555559150, pre = 0x0}
+(gdb) print * head->next
+$10 = {size = 1076, next = 0x0, pre = 0x55555555909c}
+(gdb) print * head->next->next
+Cannot access memory at address 0x0
+(gdb) q
+
+Debugger finished
+Current directory is ~/more/my_malloc/general_tests/
+GNU gdb (Ubuntu 12.1-0ubuntu1~22.04) 12.1
+Copyright (C) 2022 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+Type "show copying" and "show warranty" for details.
+This GDB was configured as "x86_64-linux-gnu".
+Type "show configuration" for configuration details.
+For bug reporting instructions, please see:
+<https://www.gnu.org/software/gdb/bugs/>.
+Find the GDB manual and other documentation resources online at:
+    <http://www.gnu.org/software/gdb/documentation/>.
+
+For help, type "help".
+Type "apropos word" to search for commands related to "word"...
+Reading symbols from mymalloc_test...
+(gdb) Warning: 'set target-async', an alias for the command 'set mi-async', is deprecated.
+Use 'set mi-async'.
+
+start
+Temporary breakpoint 1 at 0x11dd: file mymalloc_test.c, line 16.
+Starting program: /home/km632/more/my_malloc/general_tests/mymalloc_test 
+[Thread debugging using libthread_db enabled]
+Using host libthread_db library "/lib/x86_64-linux-gnu/libthread_db.so.1".
+
+Temporary breakpoint 1, main (argc=1, argv=0x7fffffffe438) at mymalloc_test.c:16
+16	int main(int argc, char * argv[]) {
+(gdb) b 92
+Breakpoint 2 at 0x55555555564d: file mymalloc_test.c, line 92.
+(gdb) run
+Starting program: /home/km632/more/my_malloc/general_tests/mymalloc_test 
+[Thread debugging using libthread_db enabled]
+Using host libthread_db library "/lib/x86_64-linux-gnu/libthread_db.so.1".
+
+Breakpoint 2, main (argc=1, argv=0x7fffffffe438) at mymalloc_test.c:92
+92	  for (i = 0; i < size; i++) {
+(gdb) print *head
+$1 = {size = 112, flag = 0, next = 0x55555555914c, prev = 0x0}
+(gdb) print *head->next
+$2 = {size = 4, flag = 0, next = 0x5555555591ac, prev = 0x555555559000}
+(gdb) print *head->next->next
+$3 = {size = 1024, flag = 0, next = 0x0, prev = 0x55555555914c}
+(gdb) print *head->next->next
+$4 = {size = 1024, flag = 0, next = 0x0, prev = 0x55555555914c}
+(gdb) print *head->next->next->next
+Cannot access memory at address 0x0
+(gdb) clear 92
+Deleted breakpoint 2 
+(gdb) b 113
+Breakpoint 3 at 0x55555555574e: file mymalloc_test.c, line 113.
+(gdb) run
+Starting program: /home/km632/more/my_malloc/general_tests/mymalloc_test 
+[Thread debugging using libthread_db enabled]
+Using host libthread_db library "/lib/x86_64-linux-gnu/libthread_db.so.1".
+
+Breakpoint 3, main (argc=1, argv=0x7fffffffe438) at mymalloc_test.c:113
+113	  array[8] = (int *)MALLOC(size * sizeof(int));
+(gdb) start
+Temporary breakpoint 4 at 0x5555555551dd: file mymalloc_test.c, line 16.
+Starting program: /home/km632/more/my_malloc/general_tests/mymalloc_test 
+/dev/pts/11: No such file or directory.
+During startup program exited with code 1.
+(gdb) clear 16
+Deleted breakpoint 4 
+(gdb) run
+Starting program: /home/km632/more/my_malloc/general_tests/mymalloc_test 
+[Thread debugging using libthread_db enabled]
+Using host libthread_db library "/lib/x86_64-linux-gnu/libthread_db.so.1".
+
+Breakpoint 3, main (argc=1, argv=0x7fffffffe438) at mymalloc_test.c:113
+113	  array[8] = (int *)MALLOC(size * sizeof(int));
+(gdb) print *head
+$5 = {size = 64, flag = 0, next = 0x55555555914c, prev = 0x0}
+(gdb) print *head->next
+$6 = {size = 1056, flag = 0, next = 0x0, prev = 0x555555559030}
+(gdb) start
+Temporary breakpoint 5 at 0x5555555551dd: file mymalloc_test.c, line 16.
+Starting program: /home/km632/more/my_malloc/general_tests/mymalloc_test 
+[Thread debugging using libthread_db enabled]
+Using host libthread_db library "/lib/x86_64-linux-gnu/libthread_db.so.1".
+
+Temporary breakpoint 5, main (argc=1, argv=0x7fffffffe438) at mymalloc_test.c:16
+16	int main(int argc, char * argv[]) {
+(gdb) b 66
+Breakpoint 6 at 0x5555555554ea: file mymalloc_test.c, line 66.
+(gdb) print *head 
+Cannot access memory at address 0x0
+(gdb) run
+Starting program: /home/km632/more/my_malloc/general_tests/mymalloc_test 
+During startup program terminated with signal SIGHUP, Hangup.
+(gdb) start
+Temporary breakpoint 7 at 0x5555555551dd: file mymalloc_test.c, line 16.
+Starting program: /home/km632/more/my_malloc/general_tests/mymalloc_test 
+[Thread debugging using libthread_db enabled]
+Using host libthread_db library "/lib/x86_64-linux-gnu/libthread_db.so.1".
+
+Temporary breakpoint 7, main (argc=1, argv=0x7fffffffe438) at mymalloc_test.c:16
+16	int main(int argc, char * argv[]) {
+(gdb) clear 113
+Deleted breakpoint 3 
+(gdb) run
+Starting program: /home/km632/more/my_malloc/general_tests/mymalloc_test 
+[Thread debugging using libthread_db enabled]
+Using host libthread_db library "/lib/x86_64-linux-gnu/libthread_db.so.1".
+
+Breakpoint 6, main (argc=1, argv=0x7fffffffe438) at mymalloc_test.c:66
+66	  size = 7;
+(gdb) print *head
+$7 = {size = 16, flag = 0, next = 0x555555559090, prev = 0x0}
+(gdb) print *head->next
+$8 = {size = 32, flag = 0, next = 0x0, prev = 0x555555559000}
+(gdb) clear 66
+Deleted breakpoint 6 
+(gdb) b 89
+Breakpoint 8 at 0x555555555624: file mymalloc_test.c, line 89.
+(gdb) run
+Starting program: /home/km632/more/my_malloc/general_tests/mymalloc_test 
+[Thread debugging using libthread_db enabled]
+Using host libthread_db library "/lib/x86_64-linux-gnu/libthread_db.so.1".
+
+Breakpoint 8, main (argc=1, argv=0x7fffffffe438) at mymalloc_test.c:89
+89	  size = 23;
+(gdb) print *head
+$9 = {size = 112, flag = 0, next = 0x5555555590d0, prev = 0x0}
+(gdb) print *head
+$10 = {size = 112, flag = 0, next = 0x5555555590d0, prev = 0x0}
+(gdb) print *head->next
+$11 = {size = 128, flag = 1, next = 0x5555555591ac, prev = 0x555555559000}
+(gdb) print *head->next->next
+$12 = {size = 1024, flag = 0, next = 0x0, prev = 0x5555555590d0}
+(gdb) clear 89
+Deleted breakpoint 8 
+(gdb) b 88
+Breakpoint 9 at 0x555555555614: file mymalloc_test.c, line 88.
+(gdb) start
+Temporary breakpoint 10 at 0x5555555551dd: file mymalloc_test.c, line 16.
+Starting program: /home/km632/more/my_malloc/general_tests/mymalloc_test 
+[Thread debugging using libthread_db enabled]
+Using host libthread_db library "/lib/x86_64-linux-gnu/libthread_db.so.1".
+
+Temporary breakpoint 10, main (argc=1, argv=0x7fffffffe438) at mymalloc_test.c:16
+16	int main(int argc, char * argv[]) {
+(gdb) run
+Starting program: /home/km632/more/my_malloc/general_tests/mymalloc_test 
+[Thread debugging using libthread_db enabled]
+Using host libthread_db library "/lib/x86_64-linux-gnu/libthread_db.so.1".
+
+Breakpoint 9, main (argc=1, argv=0x7fffffffe438) at mymalloc_test.c:88
+88	  FREE(array[3]);
+(gdb) print *head
+$13 = {size = 112, flag = 0, next = 0x5555555591ac, prev = 0x0}
+(gdb) print *head->next
+$14 = {size = 1024, flag = 0, next = 0x0, prev = 0x555555559000}
+(gdb) start
+Temporary breakpoint 11 at 0x5555555551dd: file mymalloc_test.c, line 16.
+Starting program: /home/km632/more/my_malloc/general_tests/mymalloc_test 
+/dev/pts/13: No such file or directory.
+During startup program exited with code 1.
+(gdb) run
+Starting program: /home/km632/more/my_malloc/general_tests/mymalloc_test 
+[Thread debugging using libthread_db enabled]
+Using host libthread_db library "/lib/x86_64-linux-gnu/libthread_db.so.1".
+
+Temporary breakpoint 11, main (argc=1, argv=0x7fffffffe438) at mymalloc_test.c:16
+16	int main(int argc, char * argv[]) {
+(gdb) run
+Starting program: /home/km632/more/my_malloc/general_tests/mymalloc_test 
+[Thread debugging using libthread_db enabled]
+Using host libthread_db library "/lib/x86_64-linux-gnu/libthread_db.so.1".
+
+Breakpoint 9, main (argc=1, argv=0x7fffffffe438) at mymalloc_test.c:88
+88	  FREE(array[3]);
+(gdb) step
+ff_free (ptr=0x5555555590f0) at my_malloc.c:185
+185	  node_t * currNode = ptr - sizeof(node_t);
+(gdb) n
+187	  if (head == NULL) {
+(gdb) n
+197	  freeSize += currNode->size + sizeof(node_t);
+(gdb) 
+198	  addToList(currNode);
+(gdb) 
+200	  while ((currNode->next != NULL &&
+(gdb) print *head
+$15 = {size = 112, flag = 0, next = 0x5555555590d0, prev = 0x0}
+(gdb) print *head->next
+$16 = {size = 128, flag = 1, next = 0x5555555591ac, prev = 0x555555559000}
+(gdb) print *head->next->next
+$17 = {size = 1024, flag = 0, next = 0x0, prev = 0x5555555590d0}
+(gdb) n
+201	          (void *)currNode + currNode->size + sizeof(node_t) == (void *)currNode->next)) {
+(gdb) n
+200	  while ((currNode->next != NULL &&
+(gdb) n
+206	  while ((currNode->prev != NULL &&
+(gdb) print * currNode
+$18 = {size = 128, flag = 1, next = 0x5555555591ac, prev = 0x555555559000}
+(gdb) print *currNode->prev
+$19 = {size = 112, flag = 0, next = 0x5555555590d0, prev = 0x0}
+(gdb) n
+207	          (void *)currNode->prev + currNode->prev->size + sizeof(node_t) ==
+(gdb) n
+206	  while ((currNode->prev != NULL &&
+(gdb) n
+212	}
+(gdb) print *currNode->prev
+$20 = {size = 112, flag = 0, next = 0x5555555590d0, prev = 0x0}
+(gdb)print  (node_t *)currNode->prev + currNode->prev->size + sizeof(node_t)
+Undefined command: "".  Try "help".
+(gdb) (node_t *)currNode->prev + currNode->prev->size + sizeof(node_t)
+Undefined command: "".  Try "help".
+(gdb) print currNode
+$21 = (node_t *) 0x5555555590d0
+(gdb) print currNode->prev
+$22 = (struct node_tag *) 0x555555559000
+(gdb) print *currNode
+$23 = {size = 128, flag = 1, next = 0x5555555591ac, prev = 0x555555559000}
+(gdb) print currNode->prev
+$24 = (struct node_tag *) 0x555555559000
+(gdb) print currNode
+$25 = (node_t *) 0x5555555590d0
+(gdb) ls
+Undefined command: "ls".  Try "help".
+(gdb) print *currNode
+$26 = {size = 128, flag = 1, next = 0x5555555591ac, prev = 0x555555559000}
+(gdb) q
+
+Debugger finished
+GNU gdb (Ubuntu 12.1-0ubuntu1~22.04) 12.1
+Copyright (C) 2022 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+Type "show copying" and "show warranty" for details.
+This GDB was configured as "x86_64-linux-gnu".
+Type "show configuration" for configuration details.
+For bug reporting instructions, please see:
+<https://www.gnu.org/software/gdb/bugs/>.
+Find the GDB manual and other documentation resources online at:
+    <http://www.gnu.org/software/gdb/documentation/>.
+
+For help, type "help".
+Type "apropos word" to search for commands related to "word"...
+Reading symbols from mymalloc_test...
+(gdb) Warning: 'set target-async', an alias for the command 'set mi-async', is deprecated.
+Use 'set mi-async'.
+
