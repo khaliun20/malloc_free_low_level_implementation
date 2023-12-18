@@ -3,19 +3,19 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
-//First Fit malloc/free
+
 unsigned long freeSize = 0;
 unsigned long usedSize = 0;
 
 void configMem(node_t * curr, size_t size, node_t * nextNode, node_t *head, node_t * tail) {
+  
   //if the there is only 1 block in the list
-
   if (curr->prev == NULL && curr->next == NULL) {
     head = nextNode;
     tail = nextNode;
   }
-  // if the free block is the first block in the list but there are free block after it
 
+  //if the free block is the first block in the list but there are free block after it
   else if (curr->prev == NULL && curr->next != NULL) {
     if (nextNode == NULL) {
       head = curr->next;
@@ -51,7 +51,7 @@ void configMem(node_t * curr, size_t size, node_t * nextNode, node_t *head, node
   if (nextNode != NULL) {
     nextNode->next = curr->next;
     nextNode->prev = curr->prev;
-    //    nextNode->size = curr->size - fullSize;
+    //nextNode->size = curr->size - fullSize;
 
   }
   curr->next = NULL;
@@ -98,21 +98,6 @@ void * newMem(size_t size, int tsl) {
   usedSize += fullSize;
   return beginData;
 }
-/*void * ff_malloc(size_t size) {
-  node_t * curr = head;
-  size_t fullSize = size + sizeof(node_t);
-  while (curr != NULL) {
-    if (size == curr->size) {
-      return exactMem(curr, size);
-    }
-    if (fullSize < (curr->size)) {
-      return splitMem(curr, size);
-    }
-    curr = curr->next;
-  }
-
-  return newMem(size);
-}*/
 
 void * bf_malloc(size_t size, int tsl, node_t * head, node_t * tail) {
   node_t * curr = head;
@@ -146,7 +131,6 @@ void addToList(node_t * currNode, node_t * head, node_t * tail) {
     currNode->prev = NULL;
     (head)->prev = currNode;
     head = currNode;
-    
     return;
   }
 
@@ -161,7 +145,6 @@ void addToList(node_t * currNode, node_t * head, node_t * tail) {
     currNode->next = NULL;
     currNode->prev = (tail);
     (tail) = currNode;
-   
   }
   else {
     currNode->prev = nextNode->prev;
@@ -176,17 +159,19 @@ void merge(node_t * curr, node_t * head, node_t * tail) {
     head = NULL;
     tail = NULL;
   }
-  // if the free block is the first block in the list but there are free block after it
 
+  // if the free block is the first block in the list but there are free block after it
   else if (curr->prev == NULL && curr->next != NULL) {
     curr->next->prev = NULL;
     head = curr->next;
   }
+
   //if the free bock is the last one in the list
   else if (curr->prev != NULL && curr->next == NULL) {
     curr->prev->next = NULL;
     tail = curr->prev;
   }
+
   // in all other cases, empty block is in the midde of list
   else {
     curr->prev->next = curr->next;
@@ -194,7 +179,6 @@ void merge(node_t * curr, node_t * head, node_t * tail) {
   }
   curr->next = NULL;
   curr->prev = NULL;
- 
 }
 
 void ff_free(void * ptr, node_t * head, node_t * tail) {
@@ -209,7 +193,7 @@ void ff_free(void * ptr, node_t * head, node_t * tail) {
     freeSize = currNode->size + sizeof(node_t);
     return;
   }
-  //one list is created, keep adding free blocks
+  //once list is created, keep adding free blocks
   freeSize += currNode->size + sizeof(node_t);
   currNode->next = NULL;
   currNode->prev = NULL;
@@ -242,6 +226,7 @@ unsigned long get_data_segment_free_space_size() {
   return freeSize;
 }
 
+// ************* Implementation with locks *************
 void * ts_malloc_lock (size_t size){
   pthread_mutex_lock(&lock);
   void * ans = bf_malloc(size, 0,  lock_head,  lock_tail);
@@ -255,10 +240,11 @@ void ts_free_lock (void * ptr){
   pthread_mutex_unlock (&lock);
 }
 
-
+// ************* Implementation without locks *************
 void  * ts_malloc_nolock (size_t size){
   void * ans = bf_malloc (size, 1, nolock_head, nolock_tail);
 }
+
 void ts_free_nolock ( void * ptr){
   bf_free(ptr, nolock_head, nolock_tail);
 }

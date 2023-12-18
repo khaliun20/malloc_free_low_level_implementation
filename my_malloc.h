@@ -17,7 +17,7 @@ typedef struct node_tag node_t;
 /*void * ff_malloc(size_t size);
 void ff_free(void * ptr);
 
-// Best Fir malloc/free
+// Best Fit malloc/free
 void * bf_malloc(size_t sie);
 void bf_free(void * ptr);
 unsigned long get_data_segment_size();

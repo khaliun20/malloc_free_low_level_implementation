@@ -12,4 +12,22 @@ I employed two different strategies to decide which memory space to allocate:
   
   * First Fit Memory Allocation - From the free list, allocates the first set of memory space that is larger than the requested size of the memory space
 
+  Illustration for 2 bytes of heap memory request;
+
+  ![result](imgs/1.png)
+
+## Run & Test
+
+* run make all in the current directory
+
+* cd into thread_tests
+
+* run make all in thread_tests
+
+* run the executable for each of the test types
+    - ex: ./thread_test_measurement
+    - the result should look: 
+
+    ![result](imgs/2.png)
+
 This project was such an excellent way to deepen my understanding of C and how heap space works! 
