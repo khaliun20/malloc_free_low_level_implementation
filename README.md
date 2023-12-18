@@ -12,7 +12,7 @@ I employed two different strategies to decide which memory space to allocate:
   
   * First Fit Memory Allocation - From the free list, allocates the first set of memory space that is larger than the requested size of the memory space
 
-  Illustration for 2 bytes of heap memory request;
+  Illustration for 2 bytes of heap memory request:
 
   ![result](imgs/1.png)
 
